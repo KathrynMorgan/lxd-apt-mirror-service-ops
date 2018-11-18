@@ -1,0 +1,84 @@
+####################################################################################
+############# start config #########################################################
+set _tilde            0
+set nthreads          20 
+
+set base_path         /var/www/html/
+set mirror_path       $base_path/mirror
+set skel_path         $base_path/skel
+set var_path          $base_path/var
+set cleanscript       $var_path/clean.sh
+set postmirror_script $var_path/postmirror.sh
+
+# set defaultarch  <running host architecture>
+# set run_postmirror 0
+############# end   config ##############
+
+###################################################################################
+###################################################################################
+## Repos Section 1 Utilities
+
+# Google Chrome Stable
+deb-amd64 http://dl.google.com/linux/chrome/deb/ stable main
+
+# Oracle Java7/8/9 Installer [Webupd8 Team]
+deb-amd64 http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
+
+###################################################################################
+###################################################################################
+## Repos Section 2 General Canonical Software
+
+## Canonical Ubuntu Xenial LTS - 16.04 
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial main
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial restricted
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial universe
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial multiverse
+deb-amd64 http://archive.canonical.com/ubuntu xenial partner
+
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-updates main
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-updates restricted
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-updates universe
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-updates multiverse
+
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-backports main
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-backports restricted
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-backports universe
+deb-amd64 http://archive.ubuntu.com/ubuntu xenial-backports multiverse
+
+deb-amd64 http://security.ubuntu.com/ubuntu xenial-security main
+deb-amd64 http://security.ubuntu.com/ubuntu xenial-security restricted
+deb-amd64 http://security.ubuntu.com/ubuntu xenial-security universe
+deb-amd64 http://security.ubuntu.com/ubuntu xenial-security multiverse
+
+## Canonical Ubuntu Bionic LTS - 18.04 
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic main
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic restricted
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic universe
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic multiverse
+deb-amd64 http://archive.canonical.com/ubuntu bionic partner
+
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-updates main
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-updates restricted
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-updates universe
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-updates multiverse
+
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-backports main
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-backports restricted
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-backports universe
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-backports multiverse
+
+deb-amd64 http://security.ubuntu.com/ubuntu bionic-security main
+deb-amd64 http://security.ubuntu.com/ubuntu bionic-security restricted
+deb-amd64 http://security.ubuntu.com/ubuntu bionic-security universe
+deb-amd64 http://security.ubuntu.com/ubuntu bionic-security multiverse
+
+###################################################################################
+###################################################################################
+# Un-trusted 3rd Party Repo !!WARNING!! results may varry
+# LibriOffice
+# Request Key 1378B444
+deb http://ppa.launchpad.net/libreoffice/ppa/ubuntu xenial main
+
+###################################################################################
+clean http://archive.ubuntu.com/ubuntu
+clean http://archive.canonical.com/ubuntu

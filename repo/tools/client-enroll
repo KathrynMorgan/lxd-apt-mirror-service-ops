@@ -1,0 +1,106 @@
+#!/bin/bash -e                                   # Apt-Mirror Client Enrollment
+#                                                # ContainerCraft.io
+#                                                # V_0.01
+#################################################################################
+# Set server address & credentials
+apt_MIRROR="apt.braincraft.io"   # Server fqdn /or/ IP
+apt_USER="ccio"                  # User Name (If auth required)
+apt_PASSWD="ccio"                # Password (If auth required)
+
+# PGP Key enroll
+recieve_KEYS="F6C280178D13028C \
+              BEEF83C77C14C957 \
+              04E7FDC5684D4A1C \
+              C2518248EEA14886 \
+              1397BC53640DB551"
+
+#################################################################################
+# Update sources & cache
+run_apt_update () {
+    sudo apt update
+}
+
+
+#################################################################################
+# Write apt sources.list
+write_sources_list () {
+cat <<EOF >/etc/apt/sources.list
+# Archive-Ubuntu
+deb [arch=amd64] http://apt.braincraft.io/archive-ubuntu ${DISTRIB_CODENAME} main restricted universe multiverse
+deb [arch=amd64] http://apt.braincraft.io/archive-ubuntu ${DISTRIB_CODENAME}-updates main restricted universe multiverse
+# Archive-Canonical
+deb [arch=amd64] http://apt.braincraft.io/archive-canonical ${DISTRIB_CODENAME} partner
+deb [arch=amd64] http://apt.braincraft.io/archive-canonical ${DISTRIB_CODENAME} main restricted universe multiverse
+# Security Updates
+deb [arch=amd64] http://apt.braincraft.io/security ${DISTRIB_CODENAME}-security main restricted universe multiverse
+# Backport Releases
+#deb [arch=amd64] http://apt.braincraft.io/archive-canonical ${DISTRIB_CODENAME}-backports main restricted universe multiverse
+
+# Google
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1397BC53640DB551
+deb [arch=amd64] http://apt.braincraft.io/google stable main
+
+# Java
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886
+# deb [arch=amd64] http://apt.braincraft.io/java ${DISTRIB_CODENAME} main
+
+# MAAS Next PPA
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04E7FDC5684D4A1C
+deb [arch=amd64] http://apt.braincraft.io/maas-next ${DISTRIB_CODENAME} main
+
+# MAAS-ImageBuilder
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BEEF83C77C14C957
+deb [arch=amd64] http://apt.braincraft.io/ua-maas-image-builder ${DISTRIB_CODENAME} main
+deb-src http://apt.braincraft.io/ua-maas-image-builder ${DISTRIB_CODENAME} main
+
+# Ubuntu FIPS
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6C280178D13028C
+# deb [arch=amd64] http://apt.braincraft.io/ua-fips ${DISTRIB_CODENAME} main
+
+# Precise ESM
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
+# deb-src http://apt.braincraft.io/ua-precise-esm precise main
+EOF
+}
+
+#################################################################################
+# Write Authentication Credentials
+write_auth_conf () {
+cat <<EOF >/etc/apt/auth.conf
+machine ${apt_MIRROR}
+login ${apt_USER}
+password ${apt_PASSWD}
+EOF
+}
+
+#################################################################################
+# Add PGP Keys
+import_keys () {
+    for i in ${recieve_KEYS}; do
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ${i}
+    done
+}
+
+#################################################################################
+# Backup sources.list
+backup_sources_list () {
+    cp /etc/apt/sources.list /etc/apt/sources.list.bcio-bak
+}
+
+#################################################################################
+# Curl Pipe Safety. No part of this tool executes till all parts are loaded
+run () {
+# Detect release
+DISTRIB_CODENAME=$(awk -F[=] '/DISTRIB_CODENAME/ {print $2}' /etc/lsb-release)
+
+# Run Sub Functions
+backup_sources_list
+write_sources_list
+write_auth_conf
+import_keys
+run_apt_update
+}
+
+#################################################################################
+# Run main function
+run

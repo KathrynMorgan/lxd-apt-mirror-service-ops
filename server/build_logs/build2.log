@@ -1,0 +1,10 @@
+apt update
+apt install apache2
+apt install apt-mirror
+rm index.html 
+git clone https://gitlab.com/kat.morgan/apt-mirror-server.git .
+ln -s /var/www/html/
+ln -f 000-default.conf /etc/apache2/sites-enabled/
+ln -f apache2.conf /etc/apache2/
+ln -f htpasswd /etc/apache2/
+ln -f mirror.list /etc/apt/mirror.list 

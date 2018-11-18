@@ -1,0 +1,37 @@
+
+
+git clone git@gitlab.com:kat.morgan/apt-mirror-server.git
+
+apt-key add --keyserver keyserver.ubuntu.com --recv 8D13028C
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1CC0926363E55AB
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886
+
+apt update && apt upgrade -y && apt autoremove -y && apt install -y apt-mirror apache2 lxd-client iftop tree
+systemctl start apache2 ; systemctl enable apache2
+
+rm -rf /var/www/html/index.html 
+chown -R apt-mirror:root /var/spool/apt-mirror/
+
+ln -s /var/spool/apt-mirror/mirror/archive.canonical.com/ubuntu/ /var/www/html/ubuntu-partner
+ln -s /var/spool/apt-mirror/mirror/private-ppa.launchpad.net/ubuntu-advantage/fips/ubuntu/ /var/www/html/ubuntu-fips
+ln -s /var/spool/apt-mirror/mirror/private-ppa.launchpad.net/canonical-support-eng/precise-esm-proposed/ubuntu/ /var/www/html/ubuntu-esm
+ln -s /var/spool/apt-mirror/mirror/security.ubuntu.com/ubuntu/dists/xenial-security/ /var/spool/apt-mirror/mirror/security.ubuntu.com/ubuntu/dists/xenial
+ln -s /var/spool/apt-mirror/mirror/security.ubuntu.com/ubuntu/dists/xenial-security/ /var/spool/apt-mirror/mirror/archive.ubuntu.com/ubuntu/dists/xenial-security
+
+vim /etc/apache2/sites-enabled/000-default.conf 
+sudo htpasswd -c /etc/apache2/.htpasswd canonical
+systemctl restart apache2
+
+ln tools/run-apt-mirror.sh /usr/bin/run-apt-mirror
+ln /etc/apt/sources.list
+ln /etc/apt/mirror.list 
+ln /etc/apache2/apache2.conf 
+ln /etc/apache2/sites-available/000-default.conf 
+ln /etc/network/interfaces.d/maas83.cfg eth02.cfg
+ln -s /var/spool/apt-mirror/mirror/ .
+
+run-apt-mirror
+/var/spool/apt-mirror/var/clean.sh
+
+tree /var/spool/apt-mirror/mirror/ >>apt-mirror-tree.txt
+pixz -9 -p 62 /apt-mirror-build.tar /apt-mirror-build.tar.pixz

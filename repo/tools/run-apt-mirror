@@ -1,0 +1,71 @@
+#!/bin/bash
+# This will safely run apt-mirror via the following steps:
+# - Check for running apt-mirror process
+# - Kill the process & confirm its dead before continuing
+# - Chown all /var/spool/apt-mirror contents recursively to make sure permissions are correct
+# - Execute apt-mirror from the user "apt-mirror"
+# - Echo completion message
+# - exit with error code 0
+
+# Run apt-mirror
+run_program () {
+    echo "Starting apt-mirror cache worker"
+    su - apt-mirror /bin/bash --command apt-mirror&
+
+    apt_mirror_pid=$(pgrep apt-mirror)
+    echo "Worker started at PID $apt_mirror_pid"
+}
+
+# Confirm apt-mirror cache dir permissions
+set_permissions () {
+    echo "Setting apt-mirror cache directory ownership"
+    chown -R apt-mirror:root /var/www/html/
+}
+
+# Stop apt-mirror processes
+kill_program_process () {
+if [[ $check_APT_MIRROR_RUNNING == "0" ]]; then
+    while [[ $check_APT_MIRROR_RUNNING == "0" ]]; do 
+
+        apt_mirror_pid=$(pgrep apt-mirror)
+        echo "Detected a running process for apt-mirror at PID:($apt_mirror_pid)"
+        echo "Killing PID $apt_mirror_pid before continuing ..."
+        kill --KILL $apt_mirror_pid
+        check_APT_MIRROR_RUNNING=$(pgrep apt-mirror &>1 >/dev/null; echo $?)
+
+        if [[ $check_APT_MIRROR_RUNNING == "0" ]]; then
+            echo "Process $apt_mirror_pid for apt-mirror not dead...."
+            echo "Retrying ..."
+        elif [[ $check_APT_MIRROR_RUNNING != "0" ]]; then
+            echo "Successfully stopped PID $apt_mirror_pid"
+            echo "Continuing ..." 
+        fi
+    done
+fi
+}
+
+# Echo status of apt-mirror process 
+echo_program_status () {
+[[ $check_PROGRAM_RUNNING == "True" ]] \
+    && echo "WARN: Apt-Mirror is currently running!" \
+    || echo "STAT: Apt-Mirror is not currently running."
+}
+
+# Check for running apt-mirror process
+check_program_status () {
+check_APT_MIRROR_RUNNING=$(pgrep apt-mirror 2&>1 >/dev/null; echo $?)
+
+    echo "Checking for runing apt-mirror processes"
+    [[ $check_APT_MIRROR_RUNNING == "0" ]] && check_PROGRAM_RUNNING="True" || check_PROGRAM_RUNNING="False" 
+
+}
+
+run_main () {
+check_program_status
+echo_program_status
+kill_program_process
+set_permissions
+run_program
+}
+
+run_main

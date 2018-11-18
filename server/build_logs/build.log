@@ -1,0 +1,436 @@
+    1  clear
+    2  cd apt-mirror-server/
+    3  clear
+    4  ln 000-default.conf /etc/apache2/sites-enabled/000-default.conf -f
+    5  ls
+    6  ll
+    7  htpasswd -c /etc/apache2/.htpasswd
+    8  htpasswd -c /etc/apache2/.htpasswd ccio
+    9  clear
+   10  ip a
+   11  rm -rf /var/www/html/*
+   12  systemctl restart apache2
+   13  ls
+   14  cd ..
+   15  mv apt-mirror-server/ /var/www/html/.apt-mirror-server
+   16  ln -s /var/www/html/.apt-mirror-server/ .
+   17  clear
+   18  ls
+   19  mv .apt-mirror-server apt-mirror-server
+   20  clear
+   21  ls
+   22  cd apt-mirror-server
+   23  clear
+   24  ls
+   25  cd /var/www/html/
+   26  mkdir mirror skel var
+   27  lsblk
+   28  fdisk -l /dev/sdc
+   29  exit
+   30  clear
+   31  apt update && apt upgrade -y && apt dist-upgrade -y && apt autoremove -y && apt purge lxd lxd-* -y && apt install apt-mirror apache2 lxd-client iftop tree lnav
+   32  clear
+   33  systemctl status apache2
+   34  ar
+   35  clear
+   36  ls /var/spool/apt-mirror/
+   37  clear
+   38  ls
+   39  cd apt-mirror-server/
+   40  ls
+   41  vim 000-default.conf 
+   42  vim apache2.conf 
+   43  clear
+   44  vim mirror.list 
+   45  ls
+   46  mkdir bak ; cp /etc/apt/mirror.list bak/ ; ln mirror.list /etc/apt/mirror.list 
+   47  mkdir bak ; cp /etc/apt/mirror.list bak/ ; ln mirror.list /etc/apt/mirror.list  -f
+   48  clear
+   49  vim /etc/apt/mirror.list 
+   50  ip a
+   51  clear
+   52  git clone git@gitlab.com:kat.morgan/apt-mirror-server.git
+   53  clear
+   54  ls
+   55  cd apt-mirror-server/
+   56  ls
+   57  vim apt-mirror_build.log 
+   58  clear
+   59  cd apt-mirror-server
+   60  ls
+   61  cd ..
+   62  ln -s /var/www/html/
+   63  cd /var/www/html/
+   64  clear
+   65  ls
+   66  find ./ -name "dists"
+   67  ls
+   68  cd skel/
+   69  clear
+   70  find ./ -name "dists"
+   71  cd ..
+   72  ls
+   73  ll
+   74  mkdir repo
+   75  clear
+   76  cd skel/
+   77  find ./ -name "dists"
+   78  ls security.ubuntu.com/ubuntu/
+   79  ls security.ubuntu.com/ubuntu/dists/
+   80  ls security.ubuntu.com/ubuntu/dists/bionic-security/
+   81  ln security.ubuntu.com/ubuntu/ ../repo/security
+   82  ln security.ubuntu.com/ubuntu/ ../repo/security -s
+   83  ln archive.canonical.com/ubuntu/ ../repo/archive -s
+   84  ln -s private-ppa.launchpad.net/canonical-support-eng/ ../repo/precise-esm
+   85  ln -s private-ppa.launchpad.net/ubuntu-advantage/fips/ ../repo/fips
+   86  ln -s private-ppa.launchpad.net/canonical-support-eng/precise-esm-proposed/ubuntu/ ../repo/precise-esm -f
+   87  ln -s private-ppa.launchpad.net/maas-image-builder-partners/stable/ubuntu/ ../repo/maas
+   88  ln -s dl.google.com/linux/chrome/deb/ ../repo/google
+   89  ln -s ppa.launchpad.net/maas/next/ubuntu/ ../maas-next
+   90  ln -s archive.ubuntu.com/ubuntu/ ../repo/archive-ubuntu
+   91  ln archive.canonical.com/ubuntu/ ../repo/archive-canonical -s
+   92  rm ../repo/archive -f
+   93  clear
+   94  ls
+   95  cd ../repo/
+   96  ls
+   97  clear; ll
+   98  cd fips
+   99  file fips 
+  100  ln /var/www/html/skel/archive.canonical.com/ubuntu/ ./archive-canonical -fs
+  101  ls
+  102  ln /var/www/html/skel/archive.ubuntu.com/ubuntu/ ./archive-ubuntu -fs
+  103  ln -sf /var/www/html/skel/private-ppa.launchpad.net/ubuntu-advantage/fips/ ./fips
+  104  ln -sf /var/www/html/skel/dl.google.com/ ./google 
+  105  ln -sf /var/www/html/skel/private-ppa.launchpad.net/maas-image-builder-partners/stable/ubuntu/ ./maas-image-builder
+  106  ln -sf /var/www/html/skel/private-ppa.launchpad.net/canonical-support-eng/precise-esm-proposed/ubuntu/ ./precise-esm
+  107  ln -sf /var/www/html/skel/security.ubuntu.com/ubuntu/ ./security 
+  108  ls
+  109  rm maas
+  110  ls -lah ../skel/
+  111  clear
+  112  ip a
+  113  ping apt
+  114  ip a
+  115  ifdown eth0; ifup eth0
+  116  netplan apply
+  117  ip a
+  118  clear
+  119  exit
+  120  cd html/repo/
+  121  ls
+  122  ls ./ -name "main"
+  123  find ./ -name "main"
+  124  cd ../skel/
+  125  find ./ -name "main"
+  126  find ./ -name "pool"
+  127  cd ..
+  128  find ./ -name "pool"
+  129  ln -sf /var/www/html/mirror/security.ubuntu.com/ubuntu/pool repo/security/
+  130  ln -sf /var/www/html/mirror/archive.ubuntu.com/ubuntu/pool repo/archive-ubuntu/
+  131  ln -sf /var/www/html/mirror/archive.canonical.com/ubuntu/pool repo/archive-canonical/
+  132  ln -sf /var/www/html/mirror/dl.google.com/linux/chrome/deb/pool repo/google/
+  133  ln -sf /var/www/html/mirror/ppa.launchpad.net/maas/next/ubuntu/pool repo/maas-image-builder/
+  134  ln -sf /var/www/html/mirror/private-ppa.launchpad.net/ubuntu-advantage/fips/ubuntu/pool repo/fips/
+  135  ln -sf /var/www/html/mirror/private-ppa.launchpad.net/maas-image-builder-partners/stable/ubuntu/pool repo/maas-image-builder/
+  136  find /var/www/html/mirror/archive.canonical.com/ -name project
+  137  exit
+  138  cd /var/www/html/
+  139  ls
+  140  cd repo/
+  141  cd ..
+  142  git clone https://github.com/Vestride/fancy-index.git
+  143  vim /etc/apache2/apache2.conf 
+  144  vim /etc/apache2/sites-enabled/000-default.conf 
+  145  systemctl restart apache2
+  146  clear
+  147  ls
+  148  vim /etc/apache2/sites-enabled/000-default.conf 
+  149  ll repo/
+  150  ll 
+  151  cp fancy-index/.htaccess repo/
+  152  vim repo/.htaccess 
+  153  systemctl restart apache2
+  154  ls fancy-index/
+  155  mv repo/.htaccess .
+  156  systemctl restart apache2
+  157  mv fancy-index/ repo/
+  158  mv .htaccess repo/
+  159  systemctl restart apache2
+  160  cd repo/
+  161  vim .htaccess 
+  162  ls
+  163  ll
+  164  vim /etc/apache2/sites-enabled/000-default.conf ; systemctl restart apache2
+  165  clear
+  166  exit
+  167  clear
+  168  apt-mirror
+  169  clear
+  170  apt-mirror
+  171  ls
+  172  cd html
+  173  ls
+  174  clear
+  175  ls
+  176  ls maas-next 
+  177  file maas-next 
+  178  rm maas-next 
+  179  cd html
+  180  vim repo/.htaccess 
+  181  clear
+  182  vim /etc/fstab 
+  183  ls
+  184  clear
+  185  lxc list
+  186  ls
+  187  clear
+  188  lxc list
+  189  clear
+  190  vim /etc/apt/mirror.list 
+  191  cd html
+  192  ls
+  193  cd var/
+  194  ls
+  195  ./clean.sh 
+  196  cd ../skel/
+  197  ls
+  198  clear
+  199  ls
+  200  cd archive.canonical.com/
+  201  ls
+  202  cd ubuntu/
+  203  ls
+  204  cd pool
+  205  ls
+  206  cd partner/
+  207  ls
+  208  cd ../../dists/
+  209  ls
+  210  cd bionic/
+  211  ls
+  212  vim InRelease 
+  213  clear
+  214  ls
+  215  cd ..
+  216  ls
+  217  vim /etc/apt/sources.list
+  218  ls
+  219  cd bionic/
+  220  ls
+  221  cd ..
+  222  find ./ -name Commands-amd64
+  223  ls
+  224  rm bionic/InRelease 
+  225  apt-mirror
+  226  clear
+  227  cd ..
+  228  cd repo
+  229  cd ../repo/
+  230  cd archive-ubuntu
+  231  ls
+  232  ls *
+  233  ls * -l
+  234  ls
+  235  cd ..
+  236  ls
+  237  ln /var/www/html/mirror/archive.ubuntu.com/ ubuntu
+  238  ln /var/www/html/mirror/archive.ubuntu.com/ ubuntu -sh
+  239  ln /var/www/html/mirror/archive.ubuntu.com/ ubuntu -sf
+  240  ls
+  241  cd ubuntu
+  242  ls
+  243  ls ubuntu/
+  244  ls
+  245  cd ..
+  246  clear
+  247  ls
+  248  ls ubuntu
+  249  ls archive-ubuntu
+  250  ls ubuntu
+  251  ln /var/www/html/mirror/archive.ubuntu.com/ubuntu/ ubuntu -sf
+  252  rm ubuntu
+  253  ln /var/www/html/mirror/archive.ubuntu.com/ubuntu/ ubuntu -sf
+  254  ln /var/www/html/mirror/archive.ubuntu.com/ubuntu/ archive-ubuntu -sf
+  255  ln /var/www/html/mirror/archive.canonical.com/ubuntu/ archive-canonical -sf
+  256  ln -sf /var/www/html/mirror/security.ubuntu.com/ubuntu/ security
+  257  ls security
+  258  ls ubuntu
+  259  ls security/ubuntu
+  260  ls security/ubuntu/
+  261  ls security/ubuntu/pool/
+  262  ls security/ubuntu/dists/
+  263  ls security/ubuntu/dists/bionic-security/
+  264  ls archive-ubuntu
+  265  ls archive-ubuntu/dists/
+  266  cd html
+  267  clear
+  268  ls
+  269  cd repo/
+  270  ls
+  271  clear
+  272  ll
+  273  cd archive-ubuntu
+  274  ls
+  275  cd ../
+  276  ls
+  277  cd archive-canonical
+  278  clear
+  279  ls
+  280  cd pool
+  281  ls
+  282  cd partner/ ; ls
+  283  cd ../../dists/
+  284  clear
+  285  ls
+  286  d bionic/
+  287  ls
+  288  clear
+  289  ls
+  290  cd bionic/
+  291  ls
+  292  ls partner/
+  293  vim InRelease 
+  294  d ..
+  295  clear
+  296  ls
+  297  clear
+  298  cd ..
+  299  ls
+  300  clear
+  301  cd ..
+  302  ls
+  303  cd ..
+  304  ls
+  305  cd ..
+  306  ls
+  307  cd repo/
+  308  ls -lah
+  309  ls -lah ..
+  310  vim mir
+  311  cd ..
+  312  clear
+  313  ls
+  314  cd mirror/
+  315  ls
+  316  cd archive.ubuntu.com/
+  317  ls
+  318  ls ubuntu/
+  319  ls *
+  320  ls */
+  321  ls */*
+  322  ls */* -l
+  323  cat /etc/passwd | grep apache
+  324  cat /etc/passwd | grep www
+  325  clear
+  326  cd
+  327  cd /var/www/
+  328  ll
+  329  cd html/
+  330  ll
+  331  cd ..
+  332  cat /etc/passwd | grep apache
+  333  cat /etc/passwd | grep www
+  334  ls
+  335  chown -R root:www-data html/
+  336  cd html
+  337  ls
+  338  clear
+  339  ls
+  340  cp /home/ubuntu/.bashrc ~
+  341  cp /home/ubuntu/.bashrc ~ -f
+  342  exit
+  343  clear
+  344  ls
+  345  mv apt-mirror.sh html/.apt-mirror-server/
+  346  clear
+  347  cd html
+  348  ls
+  349  ls skel/
+  350  ls var/
+  351  ls repo/
+  352  clear
+  353  exit
+  354  clear
+  355  mv apt-mirror.sh html/.apt-mirror-server/
+  356  cd html
+  357  mkdir README
+  358  cd README/
+  359  vim README
+  360  ls
+  361  mv ../.apt-mirror-server/apt-mirror.sh .
+  362  ls
+  363  clear
+  364  exit
+  365  ls
+  366  cd html
+  367  ls
+  368  ls README/
+  369  mv README/ repo/
+  370  exit
+  371  clear
+  372  vim html/.apt-mirror-server/mirror.list 
+  373  clear
+  374  vim html/.apt-mirror-server/mirror.list 
+  375  clear
+  376  exit
+  377  apt-mirror
+  378  clear
+  379  exit
+  380  clear
+  381  cd /var/www/html/
+  382  ls
+  383  clear
+  384  ls
+  385  vim /etc/apache2/conf-enabled/poshapache.conf 
+  386  vim repo/posh/posh.css 
+  387  vim repo/posh/header.html 
+  388  vim repo/posh/footer.html 
+  389  vim repo/posh/posh.js 
+  390  vim repo/posh/header.html 
+  391  vim /etc/apache2/conf-enabled/poshapache.conf 
+  392  vim repo/posh/header.html 
+  393  vim /etc/apache2/conf-enabled/poshapache.conf 
+  394  vim repo/posh/
+  395  mv repo/posh/ .
+  396  mv posh repo/
+  397  vim repo/posh/posh.css 
+  398  clear
+  399  vim repo/posh/posh.css 
+  400  vim repo/posh/
+  401  vim fancy-index/.htaccess 
+  402  clear
+  403  ls
+  404  mv fancy-index/ repo/
+  405  ls
+  406  ls repo/
+  407  mv repo/fancy-index/.htaccess repo/
+  408  mv repo/fancy-index/ fancy
+  409  clear
+  410  ls
+  411  ls fancy/
+  412  ls repo/fancy/
+  413  cd repo/fancy/
+  414  cp ../../fancy-fail/icons/folder* icons/
+  415  clear
+  416  ls
+  417  cd ..
+  418  ls
+  419  cd ..
+  420  clear
+  421  ls
+  422  vim .gitignore
+  423  git diff
+  424  clear
+  425  vim .gitignore
+  426  git diff
+  427  clear
+  428  git stage -A
+  429  ls
+  430  vim .gitignore
+  431  git diff
+  432  clear
+  433  ll
+  434  git stage -A
+  435  git diff
+  436  history >>server/build.log

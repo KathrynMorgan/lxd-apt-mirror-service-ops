@@ -1,0 +1,7 @@
+# This is an apt-mirror ubuntu repository
+# EXAMPLE Usage: wget -O - http://ccio:ccio@${FQDN_or_IP}/tools/client-enroll | bash
+#
+# To enroll a client:
+
+    wget -O - http://ccio:ccio@apt.braincraft.io/tools/client-enroll | bash
+
