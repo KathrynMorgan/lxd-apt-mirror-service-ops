@@ -1,6 +1,6 @@
 # CCIO Apt-Mirror LXD Server
 ## WARNING: apt-mirror uses up to hundreds of gigabytes for each OS & Release you configure!
-This is an LXD container building repo to easily run any public or private ppa mirrors locally. The build includes a simple "curl pipe" install script to enroll new clients to use this repo once built.
+LXD Container image configured for apt-mirror ppa repository mirroring
 
 #### 0. Add BCIO Alpha LXD Images Repository (If not already in your remotes list)
 ````sh
