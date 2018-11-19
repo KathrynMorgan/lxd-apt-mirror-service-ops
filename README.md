@@ -7,27 +7,22 @@ LXD Container image configured for apt-mirror ppa repository mirroring
 lxc remote add bcio https://images.braincraft.io --public --accept-certificate
 ````
 
-#### 2. Launch Container
+#### 1. Launch Container
 ````sh
 lxc launch bcio:apt-mirror apt-mirror
 ````
 
-#### 3. Launch apt-mirror first sync (This may take hours to complete)
+#### 2. Launch apt-mirror first sync (This may take hours to complete)
 ````sh
 lxc exec apt-mirror -- /bin/bash -c 'run-apt-mirror'
 ````
 
-#### 4. Check apt-mirror IP address
+#### 3. Check apt-mirror IP address
 ````sh
 lxc list
 ````
 
-#### 5. Visit the apt-mirror IP in a browser on the same lan to view contents. Default credentials (admin:admin)
-````sh
-git clone https://gitlab.com/kat.morgan/apt-mirror-server.git /var/www/html/
-````
-
-#### 5. Configure webui credentials
+#### 4. Configure webui credentials
 ````sh
 lxc exec apt-mirror bash
 htpasswd -D admin
@@ -35,6 +30,9 @@ htpasswd -c /etc/apache2/htpasswd ${CHOOSE_USER_NAME}
 apache2ctl restart
 ````
 
+#### 5. Visit the apt-mirror IP in a browser on the same lan to view contents. Default credentials (admin:admin)
+
+=================================================================================
 ## Storage Considerations:
 #### A. Check Allocated Storage
 ````sh
