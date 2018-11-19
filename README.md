@@ -7,18 +7,6 @@ This is an LXD container building repo to easily run any public or private ppa m
 lxc remote add bcio https://images.braincraft.io --public --accept-certificate
 ````
 
-#### 1. Allocate Storage
-````sh
-# Check storage inventory
-lxc storage list
-
-# Confirm target storage pool has ~350GB or more available
-lxc storage info ${STORAGE_VOLUME_NAME}
-
-# If additional storage pool creation is required consult lxd help resources
-# Or join #containercraft on IRC Freenode Network
-````
-
 #### 2. Launch Container
 ````sh
 lxc launch bcio:apt-mirror apt-mirror
@@ -48,6 +36,18 @@ apache2ctl restart
 ````
 
 ## Storage Considerations:
+#### A. Check Allocated Storage
+````sh
+# Check storage inventory
+lxc storage list
+
+# Confirm target storage pool has ~350GB or more available
+lxc storage info ${STORAGE_VOLUME_NAME}
+
+# If additional storage pool creation is required consult lxd help resources
+# Or join #containercraft on IRC Freenode Network
+````
+#### B. Allocate a new storage pool
 As an example, I dedicated a hard drive formatted with zfs to apt-mirror. To do so I created an lxc storage volume using flat directory driver at the zfs volume mount point:
 ````sh
     1. lxc storage create 4tb dir source=/mnt/zfs1/lxd  # create the storage volume
