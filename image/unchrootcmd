@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cur_DIR="$(pwd)"
+chroot_DIR="${cur_DIR}/clean-template/root"
+
+sudo umount ${chroot_DIR}/sys
+sudo umount ${chroot_DIR}/proc
+sudo umount ${chroot_DIR}/dev
+sudo umount ${chroot_DIR}/dev/pts

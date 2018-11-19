@@ -1,0 +1,110 @@
+    1  clear
+    2  ls
+    3  echo $PATH
+    4  ls
+    5  export PATH="$PATH:/bin/"
+    6  ls
+    7  apt update
+    8  clear
+    9  ls
+   10  ip r
+   11  ping google.com
+   12  cat /etc/resolv.conf 
+   13  echo "nameserver 8.8.8.8" >/etc/resolv.conf
+   14  touch /etc/resolv.conf
+   15  cd /etc/
+   16  ls
+   17  rm -rf resolv.conf 
+   18  touch /etc/resolv.conf
+   19  echo "nameserver 8.8.8.8" >/etc/resolv.conf
+   20  clear
+   21  ping google.com
+   22  cd
+   23  clear
+   24  apt install apache2 apt-mirror
+   25  apt update
+   26  apt install apache2 apt-mirror
+   27  clear
+   28  cd /var/www
+   29  mkdir /var/www/html
+   30  mkdir /var/www/html -p
+   31  cd /var/www/html/
+   32  mv /etc/apt/mirror.list /etc/apt/mirror.list.bak
+   33  mkdir /etc/apt/
+   34  ls /etc/apt/
+   35  git clone https://gitlab.com/kat.morgan/apt-mirror-server.git /var/www/html/
+   36  wget https://gitlab.com/kat.morgan/apt-mirror-lxd/-/archive/master/apt-mirror-lxd-master.tar.gz
+   37  ls
+   38  tar xvf apt-mirror-lxd-master.tar.gz 
+   39  ls
+   40  rm apt-mirror-lxd-master
+   41  clear
+   42  ls
+   43  rm apt-mirror-lxd-master.tar.gz 
+   44  ls
+   45  clear
+   46  ls
+   47  rm -rf apt-mirror-lxd-master/
+   48  clear
+   49  ll
+   50  git clone https://gitlab.com/kat.morgan/apt-mirror-server.git .
+   51  clear
+   52  wget https://gitlab.com/kat.morgan/apt-mirror-lxd/-/archive/master/apt-mirror-lxd-master.tar.gz
+   53  tar
+   54  tar --help
+   55  tar --help | grep directory
+   56  tar --help | grep to
+   57  tar --help | grep target
+   58  clear
+   59  ls
+   60  tar xvf apt-mirror-lxd-master.tar.gz -C .
+   61  ls
+   62  rm apt-mirror-lxd-master
+   63  rm apt-mirror-lxd-master.tar.gz 
+   64  clear
+   65  ls
+   66  mv apt-mirror-lxd-master/* .
+   67  mv apt-mirror-lxd-master/.* .
+   68  ls
+   69  ll apt-mirror-lxd-master/
+   70  rm apt-mirror-lxd-master/
+   71  rm apt-mirror-lxd-master/ -rf
+   72  clear
+   73  ll
+   74  rm .gitignore 
+   75  clear
+   76  ls
+   77  cd server/
+   78  ls
+   79  ls /etc/apache2
+   80  mkdir /etc/apache2/
+   81  apt install apache2
+   82  find / -name ldconfig
+   83  export PATH="$PATH:/bin/:/sbin/"
+   84  apt install apache2
+   85  find / -name a2enmod
+   86  export PATH="$PATH:/bin/:/sbin/:/usr/sbin/"
+   87  find / -name addgroup
+   88  apt install apache2
+   89  apt install apache2 
+   90  apt install apache2 apt-mirror
+   91  ls
+   92  ln -f apache2.conf /etc/apache2/apache2.conf
+   93  ln -f 000-default.conf /etc/apache2/sites-enabled/000-default.conf 
+   94  ln -f htpasswd /etc/apache2/htpasswd
+   95  ln -f mirror.list /etc/apt/mirror.list 
+   96  rm -rf build_logs/
+   97  clear
+   98  ls
+   99  cd ..
+  100  ls
+  101  rm -rf README.md 
+  102  rm -rf index.html 
+  103  clear
+  104  ls
+  105  ls var/
+  106  clear
+  107  vim server/mirror.list 
+  108  cd
+  109  clear
+  110  history >>build_container.log
