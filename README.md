@@ -22,14 +22,6 @@ lxc exec apt-mirror -- /bin/bash -c 'run-apt-mirror'
 lxc list
 ````
 
-#### 4. Configure webui credentials
-````sh
-lxc exec apt-mirror bash
-htpasswd -D admin
-htpasswd -c /etc/apache2/htpasswd ${CHOOSE_USER_NAME}
-apache2ctl restart
-````
-
 #### 5. Visit the apt-mirror IP in a browser on the same lan to view contents. Default credentials (admin:admin)
 #### 6. Click on the "README" file for client enrollment instructions
 #### 7. Edit mirrors.list to add/remove ppa's 
@@ -40,6 +32,15 @@ apache2ctl restart
 `lxc file edit /var/www/html/repo/tools/client-enroll`
 
 =================================================================================
+## Optional:
+#### 4. Configure webui credentials
+````sh
+lxc exec apt-mirror bash
+htpasswd -D admin
+htpasswd -c /etc/apache2/htpasswd ${CHOOSE_USER_NAME}
+apache2ctl restart
+````
+
 ## Storage Considerations:
 #### A. Check Allocated Storage
 ````sh
