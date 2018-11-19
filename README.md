@@ -32,12 +32,13 @@ apache2ctl restart
 
 #### 5. Visit the apt-mirror IP in a browser on the same lan to view contents. Default credentials (admin:admin)
 #### 6. Click on the "README" file for client enrollment instructions
-#### 6. Edit mirrors.list to add/remove ppa's 
+#### 7. Edit mirrors.list to add/remove ppa's 
 `lxc file edit apt-mirror/root/mirror.list`
 #### 8. Update the README file with your apt-mirror container IP or FQDN
 `lxc file edit /var/www/html/repo/README`
-#### 7. Update the client enrollment script with your apt-mirror container IP or FQDN
+#### 9. Update the client enrollment script with your apt-mirror container IP or FQDN
 `lxc file edit /var/www/html/repo/tools/client-enroll`
+
 =================================================================================
 ## Storage Considerations:
 #### A. Check Allocated Storage
