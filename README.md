@@ -31,7 +31,8 @@ lxc list
 #### 9. Update the client enrollment script with your apt-mirror container IP or FQDN
 `lxc file edit /var/www/html/repo/tools/client-enroll`
 
-=================================================================================
+#################################################################################
+
 ## Optional:
 #### 4. Configure webui credentials
 ````sh
