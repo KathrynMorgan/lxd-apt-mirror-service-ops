@@ -31,7 +31,7 @@ apache2ctl restart
 ````
 
 #### 5. Visit the apt-mirror IP in a browser on the same lan to view contents. Default credentials (admin:admin)
-
+#### 6. Edit mirrors.list to add/remove ppa's `lxc exec apt-mirror -- /bin/bash -c "vim /root/mirrors.list"`
 =================================================================================
 ## Storage Considerations:
 #### A. Check Allocated Storage
